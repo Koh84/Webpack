@@ -4,6 +4,7 @@
 //filename is the file we want the output to be called bundle.js
 //devServer what we wanna run when we are wanting to host page locally
 //contentBase tells the webserver where to host the content from
+const ESLintPlugin = require('eslint-webpack-plugin');
 module.exports = {
     entry: [
         './src/index.js'
@@ -15,5 +16,18 @@ module.exports = {
     },
     devServer: {
         static: './dist'
-    }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    plugins: [new ESLintPlugin()],
 }
